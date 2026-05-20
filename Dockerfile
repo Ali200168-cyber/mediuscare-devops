@@ -1,22 +1,20 @@
-server {
-    listen 80;
-    server_name localhost;
+# Stage 1: Build React app
+FROM node:18-alpine AS builder
 
-    root /usr/share/nginx/html;
-    index index.html;
+WORKDIR /app
 
-    # Handle React Router
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
+COPY package*.json ./
+RUN npm ci
 
-    # Proxy API calls to backend
-    location /api {
-        proxy_pass http://backend:5000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-}
+COPY . .
+RUN npm run build
+
+# Stage 2: Serve with Nginx
+FROM nginx:alpine
+
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
