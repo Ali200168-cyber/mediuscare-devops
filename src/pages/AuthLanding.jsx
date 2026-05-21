@@ -396,7 +396,7 @@ const AuthLanding = ({ initialMode = "login", authOnly = false, marketingOnly = 
           </div>
           <div className="why-cards">
             <div><FiCheckCircle /><h3>Accurate </h3><p>Model-backed insights for better clinical decisions.</p></div>
-            <div><FiUsers /><h3>Easy to Use</h3><p>Simple workflows for both technical and non-technical users.</p></div>
+            <div><FiUsers /><h3>Easy  Use</h3><p>Simple workflows for both technical and non-technical users.</p></div>
             <div><FiShield /><h3>Secure System</h3><p>Role-based access and secure authentication controls.</p></div>
             <div><FiTrendingUp /><h3>Real-time Insights</h3><p>Always-updated status for timely interventions.</p></div>
           </div>
