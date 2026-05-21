@@ -2,6 +2,7 @@ FROM node:20-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
+RUN npm install react-is --save
 COPY . .
 RUN NODE_OPTIONS="--max-old-space-size=1024" npm run build
 
